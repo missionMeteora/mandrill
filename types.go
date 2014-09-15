@@ -1,10 +1,10 @@
 package mandrill
 
 type Client struct {
-	apiKey 		string
-	subAccount 	string
-	fromEmail 	string
-	fromName 	string
+	apiKey     string
+	subAccount string
+	fromEmail  string
+	fromName   string
 }
 
 /**
@@ -12,9 +12,9 @@ type Client struct {
  *	==============
  *	Key 		Api key
  *	Message 	The information on the message to send
- *	Async 		Enable a background sending mode that is optimized for bulk sending. In async mode, messages/send will immediately return a status 
- *				of "queued" for every recipient. To handle rejections when sending in async mode, set up a webhook for the 'reject' event. 
- *				Defaults to false for messages with no more than 10 recipients; messages with more than 10 recipients are always sent asynchronously, 
+ *	Async 		Enable a background sending mode that is optimized for bulk sending. In async mode, messages/send will immediately return a status
+ *				of "queued" for every recipient. To handle rejections when sending in async mode, set up a webhook for the 'reject' event.
+ *				Defaults to false for messages with no more than 10 recipients; messages with more than 10 recipients are always sent asynchronously,
  *				regardless of the value of async.
  *	IpPool 		The name of the dedicated ip pool that should be used to send the message. If you do not have any dedicated IPs,
  *				this parameter has no effect. If you specify a pool that does not exist, your default pool will be used instead.
@@ -23,16 +23,16 @@ type Client struct {
  *				with a positive balance.
  */
 type SendRequest struct {
-	Key 		string 		`json:"key"`
-	Message 	*Message 	`json:"message"`
-	Async 		bool 		`json:"async"`
-	IpPool 		string 		`json:"ip_pool"` 
-	SendAt 		string 		`json:"send_at"`
+	Key     string   `json:"key"`
+	Message *Message `json:"message"`
+	Async   bool     `json:"async"`
+	IpPool  string   `json:"ip_pool"`
+	SendAt  string   `json:"send_at"`
 }
 
 /**
  *	Message struct
- *	==============		
+ *	==============
  *	Html 						The full HTML content to be sent
  *	Text 						Optional full text content to be sent
  *	Subject 					The message subject
@@ -67,81 +67,81 @@ type SendRequest struct {
  *	Images 						An array of embedded images to add to the message
  */
 type Message struct {
-	Html 						string 							`json:"html"`
-	Text 						string 							`json:"text"`
-	Subject 					string 							`json:"subject"`
-	FromEmail 					string 							`json:"from_email"`
-	FromName  					string 							`json:"from_name"`
-	To 							[]*MessageTo 					`json:"to"`
-	Headers 					*MessageHeaders 				`json:"headers"`
-	Important 					bool 							`json:"important"`
-	TrackOpens 					bool 							`json:"track_opens"`
-	TrackClicks 				bool 							`json:"track_clicks"`
-	AutoText 					bool							`json:"auto_text"`
-	AutoHtml 					bool 							`json:"auto_html"`
-	InlineCss 					bool 							`json:"inline_css"`
-	UrlStripQs 					bool 							`json:"url_strip_qs"`
-	PreserveRecipients 			bool 							`json:"preserve_recipients"`
-	ViewContentLink 			bool 							`json:"view_content_link"`
-	BccAddress  				string 							`json:"bcc_address"`
-	TrackingDomain 				string 							`json:"tracking_domain"`
-	SigningDomain 				string 							`json:"signing_domain"`
-	ReturnPathDomain 			string 							`json:"return_path_domain"`
-	Merge 						bool 							`json:"merge"`
-	GlobalMergeVars 			[]*MessageMergeItem 			`json:"global_merge_vars"`
-	MergeVars 					[]*MessageMergeWrapper			`json:"merge_vars"`
-	Tags 						[]string 						`json:"tags"`
-	SubAccount 					string 							`json:"subaccount"`
-	GoogleAnalyticsDomains 		[]string 						`json:"google_analytics_domains"`
-	GoogleAnalyticsCampaign 	string 							`json:"google_analytics_campaign"`
-	MetaData 					*MessageMetaData				`json:"metadata`
-	RecipientMetaData 			[]*MessageRecipientMetaData	 	`json:"recipient_metadata"`
-	Attachments 				[]*MessageAttachment 			`json:"attachments"`
-	Images 						[]*MessageAttachment 			`json:"images"`
+	Html                    string                      `json:"html"`
+	Text                    string                      `json:"text"`
+	Subject                 string                      `json:"subject"`
+	FromEmail               string                      `json:"from_email"`
+	FromName                string                      `json:"from_name"`
+	To                      []*MessageTo                `json:"to"`
+	Headers                 *MessageHeaders             `json:"headers"`
+	Important               bool                        `json:"important"`
+	TrackOpens              bool                        `json:"track_opens"`
+	TrackClicks             bool                        `json:"track_clicks"`
+	AutoText                bool                        `json:"auto_text"`
+	AutoHtml                bool                        `json:"auto_html"`
+	InlineCss               bool                        `json:"inline_css"`
+	UrlStripQs              bool                        `json:"url_strip_qs"`
+	PreserveRecipients      bool                        `json:"preserve_recipients"`
+	ViewContentLink         bool                        `json:"view_content_link"`
+	BccAddress              string                      `json:"bcc_address"`
+	TrackingDomain          string                      `json:"tracking_domain"`
+	SigningDomain           string                      `json:"signing_domain"`
+	ReturnPathDomain        string                      `json:"return_path_domain"`
+	Merge                   bool                        `json:"merge"`
+	GlobalMergeVars         []*MessageMergeItem         `json:"global_merge_vars"`
+	MergeVars               []*MessageMergeWrapper      `json:"merge_vars"`
+	Tags                    []string                    `json:"tags"`
+	SubAccount              string                      `json:"subaccount"`
+	GoogleAnalyticsDomains  []string                    `json:"google_analytics_domains"`
+	GoogleAnalyticsCampaign string                      `json:"google_analytics_campaign"`
+	MetaData                *MessageMetaData            `json:"metadata`
+	RecipientMetaData       []*MessageRecipientMetaData `json:"recipient_metadata"`
+	Attachments             []*MessageAttachment        `json:"attachments"`
+	Images                  []*MessageAttachment        `json:"images"`
 }
 
 type MessageTo struct {
-	Email 		string `json:"email"`
-	Name 		string `json:"name"`
-	Type 		string `json:"type"`
+	Email string `json:"email"`
+	Name  string `json:"name"`
+	Type  string `json:"type"`
 }
 
 type MessageHeaders struct {
-	ReplyTo 	string `json:"Reply-To"`
+	ReplyTo string `json:"Reply-To"`
 }
 
 type MessageMergeItem struct {
-	Name 		string `json:"name"`
-	Content 	string `json:"content"`
+	Name    string `json:"name"`
+	Content string `json:"content"`
 }
 
 type MessageMergeWrapper struct {
-	Recipient 	string `json:"rcpt"`
-	Vars 		[]*MessageMergeItem `json:"vars"`
+	Recipient string              `json:"rcpt"`
+	Vars      []*MessageMergeItem `json:"vars"`
 }
 
 type MessageMetaData struct {
-	Website 		string `json:"website"`
+	Website string `json:"website"`
 }
 
 type MessageRecipientMetaData struct {
-	Recipient 		string 								`json:"rcpt"`
-	Values 			*MessageRecipientMetaDataValues		`json:"values"`
+	Recipient string                          `json:"rcpt"`
+	Values    *MessageRecipientMetaDataValues `json:"values"`
 }
 
 type MessageRecipientMetaDataValues struct {
-	UserId 		int 	`json:"user_id"`
+	UserId int `json:"user_id"`
 }
 
 type MessageAttachment struct {
-	Type  		string `json:"type"`
-	Name 		string `json:"name"`
-	Content 	string `json:"content"`
+	Type    string `json:"type"`
+	Name    string `json:"name"`
+	Content string `json:"content"`
 }
 
 type SendResponse struct {
-	Email 				string `json:"email"`
-	Status 				string `json:"status"`
-	Id 					string `json:"_id"`
-	RejectReason 		string `json:"reject_reason"`
+	Email        string `json:"email"`
+	Status       string `json:"status"`
+	Id           string `json:"_id"`
+	RejectReason string `json:"reject_reason"`
 }

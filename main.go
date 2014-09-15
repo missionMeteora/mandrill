@@ -1,23 +1,23 @@
 package mandrill
 
-import(
-	"net/http"
-	"strings"
+import (
 	"encoding/json"
 	"io/ioutil"
+	"net/http"
+	"strings"
 )
 
 const (
 	MANDRILL_LOCATION string = "https://mandrillapp.com/api/1.0/"
-	SEND_LOCATION string = "messages/send.json"
+	SEND_LOCATION     string = "messages/send.json"
 )
 
 func New(apiKey, subAccount, fromEmail, fromName string) *Client {
 	return &Client{
-		apiKey: apiKey,
+		apiKey:     apiKey,
 		subAccount: subAccount,
-		fromEmail: fromEmail,
-		fromName: fromName,
+		fromEmail:  fromEmail,
+		fromName:   fromName,
 	}
 }
 
@@ -27,7 +27,7 @@ func (m *Client) SendMessage(html, subject, toEmail, toName string, tags []strin
 		return nil, err
 	}
 
-	response, err := sendRequest(SEND_LOCATION, requestData);
+	response, err := sendRequest(SEND_LOCATION, requestData)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +37,7 @@ func (m *Client) SendMessage(html, subject, toEmail, toName string, tags []strin
 
 func sendRequest(loc, requestData string) ([]*SendResponse, error) {
 	var sendResponse []*SendResponse
-	resp, err := http.Post(MANDRILL_LOCATION + loc, "application/json", strings.NewReader(requestData))
+	resp, err := http.Post(MANDRILL_LOCATION+loc, "application/json", strings.NewReader(requestData))
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +52,5 @@ func sendRequest(loc, requestData string) ([]*SendResponse, error) {
 		return nil, err
 	}
 
-	return sendResponse, nil 
+	return sendResponse, nil
 }
-

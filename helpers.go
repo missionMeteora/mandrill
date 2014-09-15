@@ -1,4 +1,4 @@
-package mandrill 
+package mandrill
 
 import (
 	"encoding/json"
@@ -6,41 +6,41 @@ import (
 
 func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount string, tags []string) *Message {
 	return &Message{
-		Html: 				html,
-		Subject: 			subject,
-		FromEmail: 			fromEmail,
-		FromName: 			fromName,
-		To: 				getMessageTo(toEmail, toName, "to"),
-		Important: 			false,
-		TrackOpens: 		false,
-		TrackClicks: 		false,
-		AutoText: 			true,
-		AutoHtml: 			true,
-		InlineCss: 			true,
-		UrlStripQs: 		false,
+		Html:               html,
+		Subject:            subject,
+		FromEmail:          fromEmail,
+		FromName:           fromName,
+		To:                 getMessageTo(toEmail, toName, "to"),
+		Important:          false,
+		TrackOpens:         false,
+		TrackClicks:        false,
+		AutoText:           true,
+		AutoHtml:           true,
+		InlineCss:          true,
+		UrlStripQs:         false,
 		PreserveRecipients: false,
-		ViewContentLink: 	false, 
-		Merge: 				true,
-		Tags: 				tags,
-		SubAccount: 		"Meteora Dashboard",
+		ViewContentLink:    false,
+		Merge:              true,
+		Tags:               tags,
+		SubAccount:         "Meteora Dashboard",
 	}
 }
 
 func getMessageTo(email, name, messageType string) []*MessageTo {
-	var returnMap []*MessageTo 
+	var returnMap []*MessageTo
 	messageTo := &MessageTo{
-		Email: 	email,
-		Name: 	name,
-		Type: 	messageType,
+		Email: email,
+		Name:  name,
+		Type:  messageType,
 	}
 	returnMap = append(returnMap, messageTo)
 	return returnMap
 }
 
 func getMessageGlobalMergeVars(name, content string) []*MessageMergeItem {
-	var returnMap []*MessageMergeItem 
+	var returnMap []*MessageMergeItem
 	mergeItem := &MessageMergeItem{
-		Name: 	name,
+		Name:    name,
 		Content: content,
 	}
 	returnMap = append(returnMap, mergeItem)
@@ -49,11 +49,11 @@ func getMessageGlobalMergeVars(name, content string) []*MessageMergeItem {
 
 func getSendRequestData(apiKey, html, subject, fromEmail, fromName, toEmail, toName, subAccount string, tags []string) (string, error) {
 	request := &SendRequest{
-		Key: 		apiKey,			
-		Message: 	getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount, tags),
-		Async: 		false,
+		Key:     apiKey,
+		Message: getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount, tags),
+		Async:   false,
 	}
-	
+
 	requestData, err := json.Marshal(request)
 	if err != nil {
 		return ``, err
