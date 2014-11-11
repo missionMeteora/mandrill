@@ -22,7 +22,13 @@ func New(apiKey, subAccount, fromEmail, fromName string) *Client {
 }
 
 func (m *Client) SendMessage(html, subject, toEmail, toName string, tags []string) ([]*SendResponse, error) {
-	requestData, err := getSendRequestData(m.apiKey, html, subject, m.fromEmail, m.fromName, toEmail, toName, m.subAccount, tags)
+	return m.SendMessageWithAttachments(html, subject, toEmail, toName, tags, nil)
+}
+
+func (m *Client) SendMessageWithAttachments(html, subject, toEmail, toName string,
+	tags []string, attachments []*MessageAttachment) ([]*SendResponse, error) {
+	requestData, err := getSendRequestData(m.apiKey, html, subject, m.fromEmail, m.fromName, toEmail,
+		toName, m.subAccount, tags, attachments)
 	if err != nil {
 		return nil, err
 	}

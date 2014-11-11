@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 )
 
-func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount string, tags []string) *Message {
+func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount string,
+	tags []string, attachments []*MessageAttachment) *Message {
 	return &Message{
 		Html:               html,
 		Subject:            subject,
@@ -23,6 +24,7 @@ func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAc
 		Merge:              true,
 		Tags:               tags,
 		SubAccount:         "Meteora Dashboard",
+		Attachments:        attachments,
 	}
 }
 
@@ -47,10 +49,11 @@ func getMessageGlobalMergeVars(name, content string) []*MessageMergeItem {
 	return returnMap
 }
 
-func getSendRequestData(apiKey, html, subject, fromEmail, fromName, toEmail, toName, subAccount string, tags []string) (string, error) {
+func getSendRequestData(apiKey, html, subject, fromEmail, fromName, toEmail, toName, subAccount string,
+	tags []string, attachments []*MessageAttachment) (string, error) {
 	request := &SendRequest{
 		Key:     apiKey,
-		Message: getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount, tags),
+		Message: getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount, tags, attachments),
 		Async:   false,
 	}
 
