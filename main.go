@@ -2,7 +2,6 @@ package mandrill
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -42,21 +41,15 @@ func (m *Client) SendMessageWithAttachments(html, subject, toEmail, toName strin
 }
 
 func sendRequest(loc, requestData string) ([]*SendResponse, error) {
-	var sendResponse []*SendResponse
+	var s []*SendResponse
 	resp, err := http.Post(MANDRILL_LOCATION+loc, "application/json", strings.NewReader(requestData))
 	if err != nil {
 		return nil, err
 	}
 
-	responseData, err := ioutil.ReadAll(resp.Body)
-	resp.Body.Close()
-	if err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&s); err != nil {
 		return nil, err
 	}
 
-	if err := json.Unmarshal(responseData, &sendResponse); err != nil {
-		return nil, err
-	}
-
-	return sendResponse, nil
+	return s, nil
 }

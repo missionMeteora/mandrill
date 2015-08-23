@@ -23,7 +23,7 @@ func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAc
 		ViewContentLink:    false,
 		Merge:              true,
 		Tags:               tags,
-		SubAccount:         "Meteora Dashboard",
+		SubAccount:         subAccount,
 		Attachments:        attachments,
 	}
 }

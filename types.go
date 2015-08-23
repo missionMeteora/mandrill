@@ -144,4 +144,9 @@ type SendResponse struct {
 	Status       string `json:"status"`
 	Id           string `json:"_id"`
 	RejectReason string `json:"reject_reason"`
+
+	// Used for errors
+	Code    int    `json:"code"`
+	Name    string `json:"name"`
+	Message string `json:"message"`
 }
