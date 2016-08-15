@@ -23,11 +23,11 @@ type Client struct {
  *				with a positive balance.
  */
 type SendRequest struct {
-	Key     string   `json:"key"`
-	Message *Message `json:"message"`
-	Async   bool     `json:"async"`
-	IpPool  string   `json:"ip_pool"`
-	SendAt  string   `json:"send_at"`
+	Key     string   `json:"key,omitempty"`
+	Message *Message `json:"message,omitempty"`
+	Async   bool     `json:"async,omitempty"`
+	IpPool  string   `json:"ip_pool,omitempty"`
+	SendAt  string   `json:"send_at,omitempty"`
 }
 
 /**
@@ -67,86 +67,86 @@ type SendRequest struct {
  *	Images 						An array of embedded images to add to the message
  */
 type Message struct {
-	Html                    string                      `json:"html"`
-	Text                    string                      `json:"text"`
-	Subject                 string                      `json:"subject"`
-	FromEmail               string                      `json:"from_email"`
-	FromName                string                      `json:"from_name"`
-	To                      []*MessageTo                `json:"to"`
-	Headers                 *MessageHeaders             `json:"headers"`
-	Important               bool                        `json:"important"`
-	TrackOpens              bool                        `json:"track_opens"`
-	TrackClicks             bool                        `json:"track_clicks"`
-	AutoText                bool                        `json:"auto_text"`
-	AutoHtml                bool                        `json:"auto_html"`
-	InlineCss               bool                        `json:"inline_css"`
-	UrlStripQs              bool                        `json:"url_strip_qs"`
-	PreserveRecipients      bool                        `json:"preserve_recipients"`
-	ViewContentLink         bool                        `json:"view_content_link"`
-	BccAddress              string                      `json:"bcc_address"`
-	TrackingDomain          string                      `json:"tracking_domain"`
-	SigningDomain           string                      `json:"signing_domain"`
-	ReturnPathDomain        string                      `json:"return_path_domain"`
-	Merge                   bool                        `json:"merge"`
-	GlobalMergeVars         []*MessageMergeItem         `json:"global_merge_vars"`
-	MergeVars               []*MessageMergeWrapper      `json:"merge_vars"`
-	Tags                    []string                    `json:"tags"`
-	SubAccount              string                      `json:"subaccount"`
-	GoogleAnalyticsDomains  []string                    `json:"google_analytics_domains"`
-	GoogleAnalyticsCampaign string                      `json:"google_analytics_campaign"`
-	MetaData                *MessageMetaData            `json:"metadata`
-	RecipientMetaData       []*MessageRecipientMetaData `json:"recipient_metadata"`
-	Attachments             []*MessageAttachment        `json:"attachments"`
-	Images                  []*MessageAttachment        `json:"images"`
+	Html                    string                      `json:"html,omitempty"`
+	Text                    string                      `json:"text,omitempty"`
+	Subject                 string                      `json:"subject,omitempty"`
+	FromEmail               string                      `json:"from_email,omitempty"`
+	FromName                string                      `json:"from_name,omitempty"`
+	To                      []*MessageTo                `json:"to,omitempty"`
+	Headers                 *MessageHeaders             `json:"headers,omitempty"`
+	Important               bool                        `json:"important,omitempty"`
+	TrackOpens              bool                        `json:"track_opens,omitempty"`
+	TrackClicks             bool                        `json:"track_clicks,omitempty"`
+	AutoText                bool                        `json:"auto_text,omitempty"`
+	AutoHtml                bool                        `json:"auto_html,omitempty"`
+	InlineCss               bool                        `json:"inline_css,omitempty"`
+	UrlStripQs              bool                        `json:"url_strip_qs,omitempty"`
+	PreserveRecipients      bool                        `json:"preserve_recipients,omitempty"`
+	ViewContentLink         bool                        `json:"view_content_link,omitempty"`
+	BccAddress              string                      `json:"bcc_address,omitempty"`
+	TrackingDomain          string                      `json:"tracking_domain,omitempty"`
+	SigningDomain           string                      `json:"signing_domain,omitempty"`
+	ReturnPathDomain        string                      `json:"return_path_domain,omitempty"`
+	Merge                   bool                        `json:"merge,omitempty"`
+	GlobalMergeVars         []*MessageMergeItem         `json:"global_merge_vars,omitempty"`
+	MergeVars               []*MessageMergeWrapper      `json:"merge_vars,omitempty"`
+	Tags                    []string                    `json:"tags,omitempty"`
+	SubAccount              string                      `json:"subaccount,omitempty"`
+	GoogleAnalyticsDomains  []string                    `json:"google_analytics_domains,omitempty"`
+	GoogleAnalyticsCampaign string                      `json:"google_analytics_campaign,omitempty"`
+	MetaData                *MessageMetaData            `json:"metadata,omitempty"`
+	RecipientMetaData       []*MessageRecipientMetaData `json:"recipient_metadata,omitempty"`
+	Attachments             []*MessageAttachment        `json:"attachments,omitempty"`
+	Images                  []*MessageAttachment        `json:"images,omitempty"`
 }
 
 type MessageTo struct {
-	Email string `json:"email"`
-	Name  string `json:"name"`
-	Type  string `json:"type"`
+	Email string `json:"email,omitempty"`
+	Name  string `json:"name,omitempty"`
+	Type  string `json:"type,omitempty"`
 }
 
 type MessageHeaders struct {
-	ReplyTo string `json:"Reply-To"`
+	ReplyTo string `json:"Reply-To,omitempty"`
 }
 
 type MessageMergeItem struct {
-	Name    string `json:"name"`
-	Content string `json:"content"`
+	Name    string `json:"name,omitempty"`
+	Content string `json:"content,omitempty"`
 }
 
 type MessageMergeWrapper struct {
-	Recipient string              `json:"rcpt"`
-	Vars      []*MessageMergeItem `json:"vars"`
+	Recipient string              `json:"rcpt,omitempty"`
+	Vars      []*MessageMergeItem `json:"vars,omitempty"`
 }
 
 type MessageMetaData struct {
-	Website string `json:"website"`
+	Website string `json:"website,omitempty"`
 }
 
 type MessageRecipientMetaData struct {
-	Recipient string                          `json:"rcpt"`
-	Values    *MessageRecipientMetaDataValues `json:"values"`
+	Recipient string                          `json:"rcpt,omitempty"`
+	Values    *MessageRecipientMetaDataValues `json:"values,omitempty"`
 }
 
 type MessageRecipientMetaDataValues struct {
-	UserId int `json:"user_id"`
+	UserId int `json:"user_id,omitempty"`
 }
 
 type MessageAttachment struct {
-	Type    string `json:"type"`
-	Name    string `json:"name"`
-	Content string `json:"content"`
+	Type    string `json:"type,omitempty"`
+	Name    string `json:"name,omitempty"`
+	Content string `json:"content,omitempty"`
 }
 
 type SendResponse struct {
-	Email        string `json:"email"`
-	Status       string `json:"status"`
-	Id           string `json:"_id"`
-	RejectReason string `json:"reject_reason"`
+	Email        string `json:"email,omitempty"`
+	Status       string `json:"status,omitempty"`
+	Id           string `json:"_id,omitempty"`
+	RejectReason string `json:"reject_reason,omitempty"`
 
 	// Used for errors
-	Code    int    `json:"code"`
-	Name    string `json:"name"`
-	Message string `json:"message"`
+	Code    int    `json:"code,omitempty"`
+	Name    string `json:"name,omitempty"`
+	Message string `json:"message,omitempty"`
 }
