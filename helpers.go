@@ -1,8 +1,20 @@
 package mandrill
 
 import (
+	"bytes"
 	"encoding/json"
+	"sync"
 )
+
+var bufs = sync.Pool{
+	New: func() interface{} { return bytes.NewBuffer(make([]byte, 0, 256)) },
+}
+
+func getBuffer() *bytes.Buffer { return bufs.Get().(*bytes.Buffer) }
+func putBuffer(buf *bytes.Buffer) {
+	buf.Reset()
+	bufs.Put(buf)
+}
 
 func getMessageStruct(html, subject, fromEmail, fromName, toEmail, toName, subAccount string,
 	tags []string, attachments []*MessageAttachment) *Message {
