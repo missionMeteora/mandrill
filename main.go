@@ -1,8 +1,12 @@
 package mandrill
 
 import (
+	"encoding/base64"
 	"encoding/json"
+	"io"
+	"mime"
 	"net/http"
+	"path/filepath"
 	"strings"
 )
 
@@ -38,6 +42,34 @@ func (m *Client) SendMessageWithAttachments(html, subject, toEmail, toName strin
 	}
 
 	return response, nil
+}
+
+func (m *Client) SendMessageWithReader(html, subject, toEmail, toName string,
+	tags []string, fname string, r io.Reader) ([]*SendResponse, error) {
+	att, err := AttachmentFromReader(fname, r)
+	if err != nil {
+		return nil, err
+	}
+	return m.SendMessageWithAttachments(html, subject, toEmail, toName, tags, []*MessageAttachment{att})
+}
+
+func AttachmentFromReader(fname string, r io.Reader) (*MessageAttachment, error) {
+	var (
+		buf = getBuffer()
+		enc = base64.NewEncoder(base64.RawStdEncoding, buf)
+	)
+	defer putBuffer(buf)
+
+	if _, err := io.Copy(enc, r); err != nil {
+		return nil, err
+	}
+	enc.Close()
+
+	return &MessageAttachment{
+		Type:    mime.TypeByExtension(filepath.Ext(fname)),
+		Name:    fname,
+		Content: buf.String(),
+	}, nil
 }
 
 func sendRequest(loc, requestData string) ([]*SendResponse, error) {
