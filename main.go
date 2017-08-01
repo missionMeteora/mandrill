@@ -3,6 +3,7 @@ package mandrill
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"io"
 	"mime"
 	"net/http"
@@ -73,12 +74,24 @@ func AttachmentFromReader(fname string, r io.Reader) (*MessageAttachment, error)
 }
 
 func sendRequest(loc, requestData string) ([]*SendResponse, error) {
-	var s []*SendResponse
 	resp, err := http.Post(MANDRILL_LOCATION+loc, "application/json", strings.NewReader(requestData))
 	if err != nil {
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		var r struct {
+			Code    int    `json:"code"`
+			Message string `json:"message"`
+		}
+		if err := json.NewDecoder(resp.Body).Decode(&r); err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("error(%d): %s", r.Code, r.Message)
+
+	}
+
+	var s []*SendResponse
 	if err := json.NewDecoder(resp.Body).Decode(&s); err != nil {
 		return nil, err
 	}
