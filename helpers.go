@@ -51,16 +51,6 @@ func getMessageTo(email, name, messageType string) []*MessageTo {
 	return returnMap
 }
 
-func getMessageGlobalMergeVars(name, content string) []*MessageMergeItem {
-	var returnMap []*MessageMergeItem
-	mergeItem := &MessageMergeItem{
-		Name:    name,
-		Content: content,
-	}
-	returnMap = append(returnMap, mergeItem)
-	return returnMap
-}
-
 func getSendRequestData(apiKey, html, subject, fromEmail, fromName, toEmail, toName, subAccount string,
 	tags []string, attachments []*MessageAttachment) (string, error) {
 	request := &SendRequest{
