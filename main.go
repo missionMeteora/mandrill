@@ -25,6 +25,14 @@ func New(apiKey, subAccount, fromEmail, fromName string) *Client {
 	}
 }
 
+func (m *Client) APIKey() string {
+	return m.apiKey
+}
+
+func (m *Client) SubAccount() string {
+	return m.subAccount
+}
+
 func (m *Client) SendMessage(html, subject, toEmail, toName string, tags []string) ([]*SendResponse, error) {
 	return m.SendMessageWithAttachments(html, subject, toEmail, toName, tags, nil)
 }
